@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CalendarView">
+        <attr name="calendarTextColor" format="reference|color"/>
+        <attr name="calendarTextSize" format="dimension"/>
+        <attr name="defaultHeaderTextColor" format="reference|color"/>
+        <attr name="defaultHeaderWeekendTextColor" format="reference|color"/>
+        <attr name="defaultHeaderTextSize" format="dimension"/>
+        <attr name="showChooseUi" format="boolean"/>
+        <attr name="chooseBackGround" format="reference"/>
+        <attr name="chooseTextColor" format="reference"/>
+        <attr name="showTodayUi" format="boolean"/>
+        <attr name="todayBackGround" format="reference"/>
+        <attr name="todayTextColor" format="reference|color"/>
+
+        <attr name="showUnavailableUi" format="boolean"/>
+        <attr name="unavailableBackGround" format="dimension"/>
+        <attr name="unavailableTextColor" format="reference|color"/>
+
+        <attr name="showNotCurMonthDate" format="boolean"/>
+        <attr name="showNotCurMonthUi" format="boolean"/>
+        <attr name="clickNotCurMonthUi" format="boolean"/>
+        <attr name="NotCurMonthBackGround" format="dimension"/>
+        <attr name="NotCurMonthTextColor" format="reference|color"/>
+
+
+        <attr name="showSpecialUi" format="boolean"/>
+        <attr name="specialBackGround" format="dimension"/>
+        <attr name="specialTextColor" format="reference|color"/>
+
+        <attr name="chooseMode" format="enum">
+               <enum name="single" value="0"/>
+               <enum name="multiple" value="1"/>
+        </attr>
+
+
+    </declare-styleable>
+
+
+</resources>
