@@ -103,6 +103,8 @@ public class CalendarView extends LinearLayout {
     private int currentMonth;
 
 
+    private LinkedList<IDrawCalendar> drawHandlerList;
+
     private ChooseDateChangeListener chooseDateChangeListener;
 
     public CalendarView(Context context) {
@@ -397,7 +399,7 @@ public class CalendarView extends LinearLayout {
     }
 
 
-    private class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarHolder> {
+    public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarHolder> {
 
 
         @NonNull
@@ -450,7 +452,7 @@ public class CalendarView extends LinearLayout {
                     if (choose.equals(date)){
                         holder.tvDate.setTextColor(specialTextColor);
                         if (specialBackGround != null) {
-                            holder.tvDate.setShapeBackGround(specialBackGround);
+                            holder.llContainer.setShapeBackGround(specialBackGround);
                         }
                         break;
                     }
@@ -461,7 +463,7 @@ public class CalendarView extends LinearLayout {
             if (showTodayUi && date.equals(LocalDate.now())) {
                 holder.tvDate.setTextColor(todayTextColor);
                 if (todayBackGround != null) {
-                    holder.tvDate.setShapeBackGround(todayBackGround);
+                    holder.llContainer.setShapeBackGround(todayBackGround);
                 }
             }
 
@@ -470,7 +472,7 @@ public class CalendarView extends LinearLayout {
                 if (showChooseUi && chooseDate != null && date.equals(chooseDate)) {
                     holder.tvDate.setTextColor(chooseTextColor);
                     if (chooseBackGround != null) {
-                        holder.tvDate.setShapeBackGround(chooseBackGround);
+                        holder.llContainer.setShapeBackGround(chooseBackGround);
                     }
                 }
             }else {
@@ -480,7 +482,7 @@ public class CalendarView extends LinearLayout {
                         if (choose.equals(date)){
                             holder.tvDate.setTextColor(chooseTextColor);
                             if (chooseBackGround != null) {
-                                holder.tvDate.setShapeBackGround(chooseBackGround);
+                                holder.llContainer.setShapeBackGround(chooseBackGround);
                             }
                             break;
                         }
@@ -515,6 +517,14 @@ public class CalendarView extends LinearLayout {
             } else {
                 holder.tvDate.setOnClickListener(null);
             }
+            if (drawHandlerList!=null){
+                for (IDrawCalendar drawCalendar:drawHandlerList){
+                    if (drawCalendar!=null){
+                        drawCalendar.drawCalendar(holder,date);
+                    }
+                }
+
+            }
 
         }
 
@@ -524,11 +534,17 @@ public class CalendarView extends LinearLayout {
         }
 
         class CalendarHolder extends RecyclerView.ViewHolder {
+            private SquareBackGroundLinearLayout llContainer;
             private SquareBackGroundTextView tvDate;
+            private TextView tvTop;
+            private TextView tvBottom;
 
             public CalendarHolder(@NonNull View itemView) {
                 super(itemView);
+                llContainer=itemView.findViewById(R.id.ll_container);
                 tvDate = itemView.findViewById(R.id.tv_date);
+                tvTop = itemView.findViewById(R.id.tv_top);
+                tvBottom = itemView.findViewById(R.id.tv_bottom);
             }
         }
     }
@@ -801,5 +817,22 @@ public class CalendarView extends LinearLayout {
         refreshCalendarUi();
     }
 
+    public LinkedList<IDrawCalendar> getDrawHandlerList() {
+        return drawHandlerList;
+    }
 
+    public void setDrawHandlerList(LinkedList<IDrawCalendar> drawHandlerList) {
+        this.drawHandlerList = drawHandlerList;
+    }
+    //添加绘制处理
+    public void addDrawHandler(IDrawCalendar iDrawCalendar){
+        if (iDrawCalendar==null){
+            return;
+        }
+        if(drawHandlerList==null){
+            drawHandlerList=new LinkedList<>();
+        }
+        drawHandlerList.add(iDrawCalendar);
+        refreshCalendarUi();
+    }
 }
