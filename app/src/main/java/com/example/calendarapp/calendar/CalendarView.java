@@ -165,6 +165,28 @@ public class CalendarView extends LinearLayout {
     public void setChooseDateChangeListener(ChooseDateChangeListener chooseDateChangeListener) {
         this.chooseDateChangeListener = chooseDateChangeListener;
     }
+
+
+
+    public void setCurrentYear(int currentYear) {
+        this.currentYear = currentYear;
+        refreshCalendarUi();
+    }
+
+    public void setCurrentMonth(int currentMonth) {
+        this.currentMonth = currentMonth;
+        refreshCalendarUi();
+    }
+
+    public void setCurrentDate(LocalDate localDate){
+        this.currentYear=localDate.getYear();
+        this.currentMonth=localDate.getMonthOfYear();
+        refreshCalendarUi();
+
+    }
+
+
+
     /**
      * 刷新日历Ui
      * created by dongliang
@@ -434,7 +456,7 @@ public class CalendarView extends LinearLayout {
             if (showNotCurMonthUi && date.getMonthOfYear() != currentMonth) {
                 holder.tvDate.setTextColor(NotCurMonthTextColor);
                 if (NotCurMonthBackGround != null) {
-                    holder.tvDate.setShapeBackGround(NotCurMonthBackGround);
+                    holder.llContainer.setShapeBackGround(NotCurMonthBackGround);
                 }
             }
 
@@ -443,7 +465,7 @@ public class CalendarView extends LinearLayout {
                 holder.tvDate.setTextColor(unavailableTextColor);
                 clickable = false;
                 if (unavailableBackGround != null) {
-                    holder.tvDate.setShapeBackGround(unavailableBackGround);
+                    holder.llContainer.setShapeBackGround(unavailableBackGround);
                 }
             }
 
@@ -466,7 +488,6 @@ public class CalendarView extends LinearLayout {
                     holder.llContainer.setShapeBackGround(todayBackGround);
                 }
             }
-
             //选中
             if (chooseMode==SINGLE) {
                 if (showChooseUi && chooseDate != null && date.equals(chooseDate)) {
@@ -479,7 +500,7 @@ public class CalendarView extends LinearLayout {
                 //多选中模式
                 if (showChooseUi && multipleChooseList != null && multipleChooseList.size()>0) {
                     for (LocalDate choose:multipleChooseList){
-                        if (choose.equals(date)){
+                        if (choose.isEqual(date)){
                             holder.tvDate.setTextColor(chooseTextColor);
                             if (chooseBackGround != null) {
                                 holder.llContainer.setShapeBackGround(chooseBackGround);
@@ -533,9 +554,9 @@ public class CalendarView extends LinearLayout {
             return 42;
         }
 
-        class CalendarHolder extends RecyclerView.ViewHolder {
+       public class CalendarHolder extends RecyclerView.ViewHolder {
             private SquareBackGroundLinearLayout llContainer;
-            private SquareBackGroundTextView tvDate;
+            private TextView tvDate;
             private TextView tvTop;
             private TextView tvBottom;
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,10 +49,8 @@ public class SquareBackGroundLinearLayout extends LinearLayout {
 
     }
 
-
     @Override
-    protected void onDraw(Canvas canvas) {
-
+    protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
         if (shapeDrawable!=null){
             int width=getWidth();
             int height=getHeight();
@@ -62,6 +61,8 @@ public class SquareBackGroundLinearLayout extends LinearLayout {
             shapeDrawable.draw(canvas);
             canvas.restore();
         }
-        super.onDraw(canvas);
+        return super.drawChild(canvas, child, drawingTime);
     }
+
+
 }

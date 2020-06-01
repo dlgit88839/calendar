@@ -37,7 +37,7 @@
         app:clickNotCurMonthUi="false"
         app:specialTextColor="#f90000"
         android:layout_height="200dp"
-        app:chooseBackGround="@drawable/shape_yellow_circle"
+        app:chooseBackGround="@drawable/shape_red_ring"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:todayBackGround="@drawable/shape_red_circle"
